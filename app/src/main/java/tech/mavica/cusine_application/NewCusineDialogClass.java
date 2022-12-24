@@ -1,0 +1,72 @@
+package tech.mavica.cusine_application;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDialogFragment;
+
+public class NewCusineDialogClass extends AppCompatDialogFragment {
+
+    DBManager_CountriesCusines dbManager_countriesCusines;
+    private EditText cusineCountry;
+    private EditText description;
+    private ImageView flag;
+
+    /**
+     * take DBManager as Parameter to be able to implement all CRUD Operations
+     * @param dbManager_countriesCusines
+     */
+    NewCusineDialogClass(DBManager_CountriesCusines dbManager_countriesCusines){
+        this.dbManager_countriesCusines=dbManager_countriesCusines;
+    }
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        /**
+         * getActivity -> Context .
+         */
+        AlertDialog.Builder builder = new AlertDialog.Builder(
+                getActivity()
+        );
+        /**
+         * to inflate dialog on Activity .
+         */
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.layouy_dialog,null);
+        /**
+         * setTitle -> is Text that appear at the top of the Dialog.
+         * setNegativeButton(Text,Listener) , is Cancel Button .
+         * setPositiveButton is the oppisite : used to insert new Cusine into DB with "Name , description and Flag"
+         */
+        builder.setView(view).setTitle("Enter New Cusine").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                /**
+                 * Nothing to provide , Just remove dialog .
+                 */
+            }
+        }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                /**
+                 * Insert New Cusine in Database and then referesh UI
+                 */
+                dbManager_countriesCusines.insertNewCusine(cusineCountry.getText().toString(),description.getText().toString(),R.drawable.ic_launcher_foreground);
+                MainActivity.refreshUI();
+            }
+        });
+        cusineCountry=view.findViewById(R.id.et_cusineCountry);
+        description=view.findViewById(R.id.et_description);
+        flag=view.findViewById(R.id.img_flagImage);
+
+        return  builder.create();
+    }
+}

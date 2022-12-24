@@ -9,7 +9,7 @@ public class DBHelper_CountriesCusines extends SQLiteOpenHelper {
     Context context;
     static String db_name = "cusines_db";
     static String table_countries_cusines="countries_cusines";
-    static int db_version = 1;
+    static int db_version = 2;
     static String col_id="id";
     static String col_cusine_description="cusine_description";
     static String col_country="country";
@@ -25,13 +25,15 @@ public class DBHelper_CountriesCusines extends SQLiteOpenHelper {
         /**
          * Create Country name and flag
          */
-        String createQuery = "create table "+table_countries_cusines+" ( "+col_id+" integer primary key autoincrement , "+col_cusine_description+" text not null , "+col_country+" text not null , "+col_country_flag+" integer); ";
+        String createQuery = "create table "+table_countries_cusines+" ( "+col_id+" integer primary key autoincrement , "+col_country+" text not null , "+col_cusine_description+" text not null , "+col_country_flag+" integer); ";
         sqLiteDatabase.execSQL(createQuery);
         Toast.makeText(context, "database created for first Time ✔", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        sqLiteDatabase.execSQL("drop table "+table_countries_cusines);
+        onCreate(sqLiteDatabase);
+        Toast.makeText(context, "table dropped and rebuild", Toast.LENGTH_SHORT).show();
     }
 }
