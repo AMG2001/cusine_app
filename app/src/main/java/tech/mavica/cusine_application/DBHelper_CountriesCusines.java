@@ -1,6 +1,7 @@
 package tech.mavica.cusine_application;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
@@ -9,7 +10,7 @@ public class DBHelper_CountriesCusines extends SQLiteOpenHelper {
     Context context;
     static String db_name = "cusines_db";
     static String table_countries_cusines="countries_cusines";
-    static int db_version = 2;
+    static int db_version = 3;
     static String col_id="id";
     static String col_cusine_description="cusine_description";
     static String col_country="country";
@@ -36,4 +37,16 @@ public class DBHelper_CountriesCusines extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
         Toast.makeText(context, "table dropped and rebuild", Toast.LENGTH_SHORT).show();
     }
+
+    /**
+     * this method is used to check if the Database is first time created or rebuilded or not .
+     * if ture then add modeled cusines to database ,
+     * else make it false and it not exist .
+     * @param sharedPreferences
+     */
+    void firstTimeDatabaseCreated(SharedPreferences sharedPreferences){
+
+    }
+
 }
+

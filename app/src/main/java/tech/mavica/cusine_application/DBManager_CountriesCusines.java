@@ -35,8 +35,8 @@ public class DBManager_CountriesCusines {
 
     void deleteCusine(int id){
         dbManager_countriesCusines = dbHelper_countriesCusines.getWritableDatabase();
-        dbManager_countriesCusines.delete(table_countries_cusines,"where id = "+id,null);
-        Toast.makeText(context, "record deleted", Toast.LENGTH_SHORT).show();
+        dbManager_countriesCusines.delete(table_countries_cusines,"id = "+id,null);
+        MainActivity.refreshUI();
         dbHelper_countriesCusines.close();
     }
 
