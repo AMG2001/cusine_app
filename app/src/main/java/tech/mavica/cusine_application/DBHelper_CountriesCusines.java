@@ -15,8 +15,6 @@ public class DBHelper_CountriesCusines extends SQLiteOpenHelper {
     static String col_cusine_description="cusine_description";
     static String col_country="country";
     static String col_country_flag="flags";
-
-
     DBHelper_CountriesCusines(Context context){
         super(context,db_name,null,db_version);
         this.context=context;
