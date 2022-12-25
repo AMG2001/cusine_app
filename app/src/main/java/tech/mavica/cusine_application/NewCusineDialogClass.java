@@ -2,30 +2,40 @@ package tech.mavica.cusine_application;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class NewCusineDialogClass extends AppCompatDialogFragment {
+public class NewCusineDialogClass extends AppCompatDialogFragment{
+
+
 
     DBManager_CountriesCusines dbManager_countriesCusines;
     private EditText cusineCountry;
     private EditText description;
-    private ImageView flag;
-
+    static Context context;
     /**
      * take DBManager as Parameter to be able to implement all CRUD Operations
      * @param dbManager_countriesCusines
      */
-    NewCusineDialogClass(DBManager_CountriesCusines dbManager_countriesCusines){
+    NewCusineDialogClass(DBManager_CountriesCusines dbManager_countriesCusines,Context c){
         this.dbManager_countriesCusines=dbManager_countriesCusines;
+        context=c;
     }
     @NonNull
     @Override
@@ -65,8 +75,7 @@ public class NewCusineDialogClass extends AppCompatDialogFragment {
         });
         cusineCountry=view.findViewById(R.id.et_cusineCountry);
         description=view.findViewById(R.id.et_description);
-        flag=view.findViewById(R.id.img_flagImage);
-
         return  builder.create();
     }
+
 }

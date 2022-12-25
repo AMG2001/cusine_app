@@ -1,11 +1,17 @@
 package tech.mavica.cusine_application;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +20,7 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import java.net.URI;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
     static CountriesCusinesAdapter countriesCusinesAdapter;
     static ListView listOfCusinesCountires;
     static Context context;
+    static String first_time_created_key = "FIRST_TIME_CREATED";
+
+    static SharedPreferences firstTimeDBCreatedSharedPreferences;
+    static SharedPreferences.Editor firstTimeDBCreatedSharedPreferencesEditor;
     /**
      * Country Cosine DBHelper and DBManager .
      */
@@ -52,33 +63,35 @@ public class MainActivity extends AppCompatActivity {
          * Set title for Page .
          */
         this.setTitle("Cusine App");
-
-
-       // dbManager_countriesCusines.insertNewCusine("Egypt","Try and taste all Egyptian Food",R.drawable.egypt_flag);
-       // dbManager_countriesCusines.insertNewCusine("Italy","Try and taste all Italian Food",R.drawable.italy_flag);
-       // dbManager_countriesCusines.insertNewCusine("india","Try and taste all Indian Food",R.drawable.india_flag);
         /**
+         * here i used shared preferences to check , if this is first Time db created or dropped
+         * and recreated , then add intialized cusines to Database ,
+         * else , don't do any thing .
+         */
+        firstTimeDBCreatedSharedPreferences =getSharedPreferences(first_time_created_key,MODE_PRIVATE);
+         // Creating an Editor object to edit(write to the file)
+        firstTimeDBCreatedSharedPreferencesEditor = firstTimeDBCreatedSharedPreferences.edit();
+         if(firstTimeDBCreatedSharedPreferences.getBoolean(first_time_created_key,true) == true){
+             Toast.makeText(context, "value of Shared pref before change : "+firstTimeDBCreatedSharedPreferences.getBoolean(first_time_created_key,false), Toast.LENGTH_LONG).show();
+             /**
+              * Adding initialized cusines ti database ->
+              */
+             dbManager_countriesCusines.insertNewCusine("Egypt","Try and taste all Egyptian Food",R.drawable.egypt_flag);
+             dbManager_countriesCusines.insertNewCusine("Italy","Try and taste all Italian Food",R.drawable.italy_flag);
+             dbManager_countriesCusines.insertNewCusine("india","Try and taste all Indian Food",R.drawable.india_flag);
+             dbManager_countriesCusines.insertNewCusine("Japan","Try and taste all Japanese Food",R.drawable.japan_flag);
+             dbManager_countriesCusines.insertNewCusine("Saudi Arabia","Try and taste all Arab Food",R.drawable.arab_flag);
+             dbManager_countriesCusines.insertNewCusine("France","Try and taste all French Food",R.drawable.france_flag);
+         firstTimeDBCreatedSharedPreferencesEditor.putBoolean(first_time_created_key,false);
+         firstTimeDBCreatedSharedPreferencesEditor.commit();
+         Toast.makeText(context, "value of Shared pref After change : "+firstTimeDBCreatedSharedPreferences.getBoolean(first_time_created_key,false), Toast.LENGTH_LONG).show();
+         }
+       /**
          * it will rebuild UI Each time you open this page .
          * rebuild mean clear all data inside ArrayList , get all recored from database
          * and pass all these records to ArrayLists .
          */
         refreshUI();
-//        ids.add(1);
-//        ids.add(2);
-//        ids.add(3);
-//
-//        countriesCusinesList.add("Egypt");
-//        countriesCusinesList.add("Italy");
-//        countriesCusinesList.add("india");
-//
-//        cusinesDescriptionList.add("Try and taste all Egyptian Food");
-//        cusinesDescriptionList.add("Try and taste all Italian Food");
-//        cusinesDescriptionList.add("Try and taste all indian Food");
-//
-//        countriesFlagsList.add(R.drawable.egypt_flag);
-//        countriesFlagsList.add(R.drawable.italy_flag);
-//        countriesFlagsList.add(R.drawable.india_flag);
-
         /**
          * pass ArrayLists to adapter
          */
@@ -93,24 +106,27 @@ public class MainActivity extends AppCompatActivity {
         listOfCusinesCountires.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int index, long l) {
-                Toast.makeText(MainActivity.this, "id in database : "+ids.get(index) ,Toast.LENGTH_SHORT).show();
-                 showPopupMenu(view,ids.get(index));
+                 showPopupMenu(view,ids.get(index),index);
                 return true;
             }
         });
     }
-
-
-
     /**
      * it used to refresh Ui each time you open this page .
      */
     static void refreshUI(){
         Cursor cursor = dbManager_countriesCusines.display();
+        /**
+         * Clear all ArrayLists Data :
+         */
         countriesCusinesList.clear();
         countriesFlagsList.clear();
         cusinesDescriptionList.clear();
+        ids.clear();
         while(cursor.moveToNext()){
+            /**
+             * reloading all ArrayLists Data from database :
+             */
             ids.add(cursor.getInt(0));
             countriesCusinesList.add(cursor.getString(1));
             cusinesDescriptionList.add(cursor.getString(2));
@@ -120,9 +136,6 @@ public class MainActivity extends AppCompatActivity {
         countriesCusinesAdapter = new CountriesCusinesAdapter(context,countriesCusinesList,cusinesDescriptionList,countriesFlagsList);
         listOfCusinesCountires.setAdapter(countriesCusinesAdapter);
     }
-
-
-
 
     /**
      * open dialog to insert new Cusine .
@@ -137,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
      * Show Edit , Delete Popup Menu .
      * @param view
      */
-    void showPopupMenu(View view,int idInDatabase){
+    void showPopupMenu(View view,int idInDatabase,int indexInMenu){
         PopupMenu popup = new PopupMenu(MainActivity.this,view);
         popup.inflate(R.menu.edit_delete_menu);
         popup.show();
@@ -146,7 +159,16 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch(menuItem.getItemId()){
                     case R.id.edit:
-                        // TODO : implement edit method
+                        /**
+                         * Send data to change Cusine info page to Edit on it .
+                         */
+                        Intent i = new Intent(MainActivity.this , ChangeCusineInfoActivity.class);
+                        i.putExtra("id",idInDatabase);
+                        i.putExtra("cusine_name",countriesCusinesList.get(indexInMenu));
+                        i.putExtra("cusine_description",cusinesDescriptionList.get(indexInMenu));
+                        i.putExtra("flag",countriesFlagsList.get(indexInMenu));
+                        Toast.makeText(MainActivity.this, "id : "+idInDatabase+"\n name : "+countriesCusinesList.get(indexInMenu)+"\n description : "+cusinesDescriptionList.get(indexInMenu), Toast.LENGTH_LONG).show();
+                        startActivity(i);
                         Toast.makeText(MainActivity.this, "Edit clicked , id : "+idInDatabase, Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.Delete:
@@ -163,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void openDialog(){
-        NewCusineDialogClass dialog = new NewCusineDialogClass(dbManager_countriesCusines);
+        NewCusineDialogClass dialog = new NewCusineDialogClass(dbManager_countriesCusines,this);
         dialog.show(getSupportFragmentManager(),null);
     }
 
