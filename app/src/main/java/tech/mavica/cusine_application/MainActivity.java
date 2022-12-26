@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     static ArrayList<Integer> ids=new ArrayList<Integer>();
     static CountriesCusinesAdapter countriesCusinesAdapter;
     static ListView listOfCusinesCountires;
+
     static Context context;
     static String first_time_created_key = "FIRST_TIME_CREATED";
 
@@ -104,10 +105,24 @@ public class MainActivity extends AppCompatActivity {
          * when you press on any item , it navigate to this country foods page :
          */
         listOfCusinesCountires.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int index, long l) {
                  showPopupMenu(view,ids.get(index),index);
                 return true;
+            }
+        });
+
+        listOfCusinesCountires.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i){
+                    case 0:
+                        Intent intent = new Intent(MainActivity.this,EgyptianFoodActivity.class);
+                        startActivity(intent);
+                        break;
+                }
             }
         });
     }
@@ -162,18 +177,15 @@ public class MainActivity extends AppCompatActivity {
                         /**
                          * Send data to change Cusine info page to Edit on it .
                          */
-                        Intent i = new Intent(MainActivity.this , ChangeCusineInfoActivity.class);
+                        Intent i = new Intent(getApplicationContext() , ChangeCusineInfoActivity.class);
                         i.putExtra("id",idInDatabase);
                         i.putExtra("cusine_name",countriesCusinesList.get(indexInMenu));
                         i.putExtra("cusine_description",cusinesDescriptionList.get(indexInMenu));
                         i.putExtra("flag",countriesFlagsList.get(indexInMenu));
-                        Toast.makeText(MainActivity.this, "id : "+idInDatabase+"\n name : "+countriesCusinesList.get(indexInMenu)+"\n description : "+cusinesDescriptionList.get(indexInMenu), Toast.LENGTH_LONG).show();
                         startActivity(i);
-                        Toast.makeText(MainActivity.this, "Edit clicked , id : "+idInDatabase, Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.Delete:
-                        Toast.makeText(MainActivity.this, "Delete Clicked id : "+idInDatabase, Toast.LENGTH_SHORT).show();
-                        // TODO : implement delete method .
+//                        Toast.makeText(MainActivity.this, "Delete Clicked id : "+idInDatabase, Toast.LENGTH_SHORT).show();
                         dbManager_countriesCusines.deleteCusine(idInDatabase);
                         return true;
                     default:
@@ -182,7 +194,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
     public void openDialog(){
         NewCusineDialogClass dialog = new NewCusineDialogClass(dbManager_countriesCusines,this);

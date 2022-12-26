@@ -31,15 +31,6 @@ public class ChangeCusineInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.change_cusine_info);
-
-        /**
-         * Get data that sent from main page .
-         */
-        Intent i = getIntent();
-        cusine_name=i.getStringExtra("cusine_name");
-        cusine_description=i.getStringExtra("cusine_description");
-        flag = i.getIntExtra("flag" , R.drawable.ic_launcher_foreground);
-        id = i.getIntExtra("id",1);
         /**
          * link UI with class .
          */
@@ -48,11 +39,22 @@ public class ChangeCusineInfoActivity extends AppCompatActivity {
         flag_image=findViewById(R.id.country_flag);
         btn_changeFlag=findViewById(R.id.btn_changeFlag);
         /**
+         * Get data that sent from main page .
+         */
+        Intent i = getIntent();
+        cusine_name=i.getStringExtra("cusine_name");
+        cusine_description=i.getStringExtra("cusine_description");
+        flag = i.getIntExtra("flag" , R.drawable.ic_launcher_foreground);
+        id = i.getIntExtra("id",1);
+
+        /**
          * set UI Data with comming intent data
          */
+        Toast.makeText(this, "cusine country : "+cusine_name, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "cusine description  :"+cusine_description, Toast.LENGTH_SHORT).show();
         et_cusineCountry.setText(cusine_name);
-        et_cusineDescription.setText(cusine_description);
-        flag_image.setImageResource(flag);
+//        et_cusineDescription.setText(cusine_description);
+//        flag_image.setImageResource(flag);
         /**
          * change flag Button Listener .
          */
