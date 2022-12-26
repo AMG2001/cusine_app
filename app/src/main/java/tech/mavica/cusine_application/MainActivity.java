@@ -105,8 +105,6 @@ public class MainActivity extends AppCompatActivity {
          * when you press on any item , it navigate to this country foods page :
          */
         listOfCusinesCountires.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
-
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int index, long l) {
                  showPopupMenu(view,ids.get(index),index);
