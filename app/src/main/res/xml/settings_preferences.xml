@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Application Setting" android:key="settings_sharedPref">
+
+        <SwitchPreference android:title="Dark / Light Mode " android:id="@+id/sharedPref_switch_light_dark_mode">
+
+        </SwitchPreference>
+
+        <CheckBoxPreference android:title="Dark / Light Mode" android:id="@+id/sharedPref_checkbox_dark_light_mode">
+
+        </CheckBoxPreference>
+
+
+
+    </PreferenceCategory>
+</PreferenceScreen>

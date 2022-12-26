@@ -1,10 +1,15 @@
 package tech.mavica.cusine_application;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -40,4 +45,31 @@ public class EgyptianFoodActivity extends AppCompatActivity {
         FoodAdapter foodAdapter=new FoodAdapter(foodNameList,foodComponentsList,foodImageList,context);
         lv_egyptianFood.setAdapter(foodAdapter);
     }
+
+    /**
+     * Menu create and inflate in AppBar
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.settings_menu,menu);
+        return true;
+    }
+    /**
+     * Actioning appbar buttons .
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.settings_tab:
+                startActivity(new Intent(this,SettingsActivity.class));
+                return  true;
+            default:
+                return true;
+        }
+    }
+
 }

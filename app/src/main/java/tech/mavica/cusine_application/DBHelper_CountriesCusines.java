@@ -10,15 +10,17 @@ public class DBHelper_CountriesCusines extends SQLiteOpenHelper {
     Context context;
     static String db_name = "cusines_db";
     static String table_countries_cusines="countries_cusines";
-    static int db_version = 16;
+    static int db_version = 18;
     static String col_id="id";
     static String col_cusine_description="cusine_description";
     static String col_country="country";
     static String col_country_flag="flags";
+
     DBHelper_CountriesCusines(Context context){
         super(context,db_name,null,db_version);
         this.context=context;
     }
+
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         /**

@@ -23,8 +23,6 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class NewCusineDialogClass extends AppCompatDialogFragment{
 
-
-
     DBManager_CountriesCusines dbManager_countriesCusines;
     private EditText cusineCountry;
     private EditText description;
