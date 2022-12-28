@@ -33,9 +33,18 @@ public class DBManager_CountriesCusines {
         dbHelper_countriesCusines.close();
     }
 
+    void updateCusineCountryInfo(int id,String countryName,String description){
+        dbManager_countriesCusines=dbHelper_countriesCusines.getWritableDatabase();
+        ContentValues cv=new ContentValues();
+        cv.put(col_id,id);
+        cv.put(col_country,countryName);
+        cv.put(col_cusine_description,description);
+        dbManager_countriesCusines.update(table_countries_cusines,cv,col_id+" = "+id,null);
+        dbHelper_countriesCusines.close();
+    }
     void deleteCusine(int id){
         dbManager_countriesCusines = dbHelper_countriesCusines.getWritableDatabase();
-        dbManager_countriesCusines.delete(table_countries_cusines,"id = "+id,null);
+        dbManager_countriesCusines.delete(table_countries_cusines,col_id+" = "+id,null);
         MainActivity.refreshUI();
         dbHelper_countriesCusines.close();
     }
