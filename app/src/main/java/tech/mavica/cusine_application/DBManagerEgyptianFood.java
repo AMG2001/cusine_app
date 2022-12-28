@@ -39,4 +39,22 @@ static DBHelperEgyptianFood egyptianFoodDBHelper;
         Cursor cursor = egyptianFoodDBManager.rawQuery(displayQuery,null);
         return  cursor;
     }
+
+    void deleteEgyptianFood(int id){
+        egyptianFoodDBManager=egyptianFoodDBHelper.getWritableDatabase();
+    egyptianFoodDBManager.delete(EGYPTIANFOOD_TABLE_NAME,EGYPTIANFOOD_COLUMN_ID+" = "+id,null);
+    egyptianFoodDBHelper.close();
+    EgyptianFoodActivity.refreshUI();
+    }
+
+    void update(int id ,String name,String description,String preparingWay,int image){
+        egyptianFoodDBManager=egyptianFoodDBHelper.getWritableDatabase();
+        ContentValues cv=new ContentValues();
+        cv.put(EGYPTIANFOOD_COLUMN_FOODNAME,name);
+        cv.put(EGYPTIANFOOD_COLUMN_FOODDESCRIPTION,description);
+        cv.put(EGYPTFOOD_COLUMN_PREPARING_WAY,preparingWay);
+        cv.put(EGYPTIANFOOD_COLUMN_IMAGE,image);
+        egyptianFoodDBManager.update(EGYPTIANFOOD_TABLE_NAME,cv,EGYPTIANFOOD_COLUMN_ID+" = "+id,null);
+        egyptianFoodDBHelper.close();
+    }
 }

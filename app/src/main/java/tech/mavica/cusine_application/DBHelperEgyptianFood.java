@@ -36,9 +36,4 @@ public class DBHelperEgyptianFood extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
         Toast.makeText(c, "egyptian food db recreated", Toast.LENGTH_SHORT).show();
     }
-
-
-
-
-
 }
