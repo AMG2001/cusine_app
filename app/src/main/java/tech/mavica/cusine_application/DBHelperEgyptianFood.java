@@ -11,6 +11,7 @@ public class DBHelperEgyptianFood extends SQLiteOpenHelper {
     static  String EGYPTIANFOOD_TABLE_NAME = "egyptian_food_table";
     static String EGYPTIANFOOD_DATABASE_NAME="egyptianfood";
     static int EGYPTIANFOOD_DATABASE_VERSION=1;
+    static  String EGYPTFOOD_COLUMN_PREPARING_WAY="preparing_way";
     static String EGYPTIANFOOD_COLUMN_ID="ID";
         static String EGYPTIANFOOD_COLUMN_FOODNAME="foodname";
         static String EGYPTIANFOOD_COLUMN_FOODDESCRIPTION="FOODDESCRIPTION";
@@ -22,7 +23,7 @@ public class DBHelperEgyptianFood extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String createEgyptianFoodTableQuery="create table "+EGYPTIANFOOD_TABLE_NAME+"( "+EGYPTIANFOOD_COLUMN_ID+"  long primary key autoincrement , "+EGYPTIANFOOD_COLUMN_FOODNAME+" text , "+EGYPTIANFOOD_COLUMN_FOODDESCRIPTION+" text , "+EGYPTIANFOOD_COLUMN_IMAGE+" integer ) ;";
+        String createEgyptianFoodTableQuery="create table "+EGYPTIANFOOD_TABLE_NAME+"( "+EGYPTIANFOOD_COLUMN_ID+" integer primary key autoincrement , "+EGYPTIANFOOD_COLUMN_FOODNAME+" text , "+EGYPTIANFOOD_COLUMN_FOODDESCRIPTION+" text , "+EGYPTFOOD_COLUMN_PREPARING_WAY+" text , "+EGYPTIANFOOD_COLUMN_IMAGE+" integer ) ;";
         sqLiteDatabase.execSQL(createEgyptianFoodTableQuery);
         egyptianFoodDBManager=sqLiteDatabase;
     }
@@ -33,13 +34,7 @@ public class DBHelperEgyptianFood extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    static void insertNewEgyptianFood(String name,String description,int image){
-        ContentValues cv=new ContentValues();
-        cv.put("name",name);
-        cv.put("description",description);
-        cv.put("image",image);
-        egyptianFoodDBManager.insert(EGYPTIANFOOD_TABLE_NAME,null,cv);
-    }
+
 
 
 

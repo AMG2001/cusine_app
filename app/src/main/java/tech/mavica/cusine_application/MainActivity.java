@@ -62,8 +62,10 @@ public class MainActivity extends AppCompatActivity {
          */
         isLightSharedPref = getSharedPreferences("isLight",MODE_PRIVATE);
         if(isLightSharedPref.getBoolean("isLight",true)==true){
+            // Light Mode On :
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }else{
+            // Dark Mode On :
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
         context = MainActivity.this;
@@ -100,7 +102,10 @@ public class MainActivity extends AppCompatActivity {
              dbManager_countriesCusines.insertNewCusine("Japan","Try and taste all Japanese Food",R.drawable.japan_flag);
              dbManager_countriesCusines.insertNewCusine("Saudi Arabia","Try and taste all Arab Food",R.drawable.arab_flag);
              dbManager_countriesCusines.insertNewCusine("France","Try and taste all French Food",R.drawable.france_flag);
-         firstTimeDBCreatedSharedPreferencesEditor.putBoolean(first_time_created_key,false);
+             /**
+              * change default
+              */
+             firstTimeDBCreatedSharedPreferencesEditor.putBoolean(first_time_created_key,false);
          firstTimeDBCreatedSharedPreferencesEditor.commit();
          Toast.makeText(context, "value of Shared pref After change : "+firstTimeDBCreatedSharedPreferences.getBoolean(first_time_created_key,false), Toast.LENGTH_LONG).show();
          }
@@ -143,14 +148,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    /**
-     * this method Go to Settings fragment page to check on last user Dark/Light Application mode .
-     */
-    void getApplicatioTheme(){
-
-    }
-
     /**
      * Menu create and inflate in AppBar
      * @param menu
@@ -176,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
     }
-
     /**
      * it used to refresh Ui each time you open this page .
      */

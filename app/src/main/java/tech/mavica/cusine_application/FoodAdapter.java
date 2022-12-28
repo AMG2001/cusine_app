@@ -16,7 +16,7 @@ public class FoodAdapter extends BaseAdapter {
     ArrayList<Integer> foodImageList=new ArrayList<>();
     Context context;
     LayoutInflater inflater;
-    public FoodAdapter(ArrayList<String> foodNameList, ArrayList<String> foodComponentsList, ArrayList<Integer> foodImage, Context context) {
+    public FoodAdapter(Context context,ArrayList<String> foodNameList, ArrayList<String> foodComponentsList, ArrayList<Integer> foodImage) {
         this.foodNameList = foodNameList;
         this.foodComponentsList = foodComponentsList;
         this.foodImageList = foodImage;

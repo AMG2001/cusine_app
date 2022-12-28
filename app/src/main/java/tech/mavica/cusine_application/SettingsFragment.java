@@ -17,19 +17,23 @@ import androidx.preference.SwitchPreference;
 
 
 public class SettingsFragment extends PreferenceFragmentCompat {
+
     static SharedPreferences lightModeSharedPref;
+    SharedPreferences.Editor lightModeSharedPrefEditor;
+
     static String LIGHT_KEY="isLight";
+
     static CheckBoxPreference isLightCheckBox;
     static SwitchPreference isLightSwitch;
+
     static boolean isLightBool;
     static String SHARED_PREFERENCES_SWITCH = "sharedPrefSwitch";
-    SharedPreferences.Editor lightModeSharedPrefEditor;
-    @SuppressLint("MissingInflatedId")
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
         /**
-         * link fragment with it's xml code .
+         * link Class with it's UI XML code .
          */
         setPreferencesFromResource(R.xml.settings_preferences,rootKey);
         /**
@@ -60,10 +64,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     }else{
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
                     }
                     lightModeSharedPrefEditor.putBoolean(LIGHT_KEY,isLightBool);
                     lightModeSharedPrefEditor.commit();
+                    // true
                     isLightCheckBox.setChecked(isLightBool);
                     isLightSwitch.setChecked(isLightBool);
                     }
