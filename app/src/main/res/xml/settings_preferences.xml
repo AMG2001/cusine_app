@@ -3,11 +3,11 @@
 
     <PreferenceCategory android:title="Application Setting" android:key="settings_sharedPref">
 
-        <SwitchPreference android:title="Dark / Light Mode " android:id="@+id/sharedPref_switch_light_dark_mode">
+        <SwitchPreference android:title="Light Mode Switch"  android:key="sharedPref_switch_light_dark_mode">
 
         </SwitchPreference>
 
-        <CheckBoxPreference android:title="Dark / Light Mode" android:id="@+id/sharedPref_checkbox_dark_light_mode">
+        <CheckBoxPreference android:title="Light Mode CheckBox" android:key="sharedPref_checkbox_dark_light_mode">
 
         </CheckBoxPreference>
 

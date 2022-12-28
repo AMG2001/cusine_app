@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -28,19 +27,19 @@ public class EgyptianFoodActivity extends AppCompatActivity {
         context=this;
         foodNameList.add("محشي مشكل");
         foodComponentsList.add("ورق عنب , كرمب , بتنجان , فلفل , رز , خلطه");
-        foodImageList.add(R.drawable.ma74y);
+        foodImageList.add(R.drawable.eg_food_ma74y);
 
         foodNameList.add("محشي مشكل");
         foodComponentsList.add("ورق عنب , كرمب , بتنجان , فلفل , رز , خلطه");
-        foodImageList.add(R.drawable.ma74y);
+        foodImageList.add(R.drawable.eg_food_ma74y);
 
         foodNameList.add("محشي مشكل");
         foodComponentsList.add("ورق عنب , كرمب , بتنجان , فلفل , رز , خلطه");
-        foodImageList.add(R.drawable.ma74y);
+        foodImageList.add(R.drawable.eg_food_ma74y);
 
         foodNameList.add("محشي مشكل");
         foodComponentsList.add("ورق عنب , كرمب , بتنجان , فلفل , رز , خلطه");
-        foodImageList.add(R.drawable.ma74y);
+        foodImageList.add(R.drawable.eg_food_ma74y);
 
         FoodAdapter foodAdapter=new FoodAdapter(foodNameList,foodComponentsList,foodImageList,context);
         lv_egyptianFood.setAdapter(foodAdapter);
@@ -71,5 +70,6 @@ public class EgyptianFoodActivity extends AppCompatActivity {
                 return true;
         }
     }
+
 
 }

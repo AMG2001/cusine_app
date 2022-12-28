@@ -3,6 +3,7 @@ package tech.mavica.cusine_application;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Context;
 import android.content.Intent;
@@ -38,8 +39,15 @@ public class MainActivity extends AppCompatActivity {
     static ListView listOfCusinesCountires;
     static Context context;
     static String first_time_created_key = "FIRST_TIME_CREATED";
+    /**
+     * First time shared preference to loud Default 6 countires in database .
+     */
     static SharedPreferences firstTimeDBCreatedSharedPreferences;
     static SharedPreferences.Editor firstTimeDBCreatedSharedPreferencesEditor;
+    /**
+     * shared preference to check last user Dark/Light mode choice .
+     */
+    SharedPreferences isLightSharedPref;
     /**
      * Country Cosine DBHelper and DBManager .
      */
@@ -49,6 +57,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        /**
+         * checking last Light/Dark mode user choice :
+         */
+        isLightSharedPref = getSharedPreferences("isLight",MODE_PRIVATE);
+        if(isLightSharedPref.getBoolean("isLight",true)==true){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
         context = MainActivity.this;
         /**
          * create database and get SQLiteDatabase Object .
@@ -127,6 +144,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * this method Go to Settings fragment page to check on last user Dark/Light Application mode .
+     */
+    void getApplicatioTheme(){
+
+    }
 
     /**
      * Menu create and inflate in AppBar
