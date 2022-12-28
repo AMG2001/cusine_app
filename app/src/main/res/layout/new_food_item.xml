@@ -3,31 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="24dp"
+    android:padding="36dp"
     android:layout_height="wrap_content">
 
     <EditText
-        android:id="@+id/et_egyptianfood_name"
+        android:id="@+id/et_foodName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Add New Item"
         android:inputType="textPersonName"
-        android:hint="enter new Item"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/et_egyptainfood_description"
+        android:id="@+id/et_foodDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="44dp"
         android:ems="10"
+        android:hint="Add Item Description"
         android:inputType="textPersonName"
-       android:hint="enter cusine description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_egyptianfood_name" />
+        app:layout_constraintTop_toBottomOf="@+id/et_foodName" />
+
+    <EditText
+        android:id="@+id/et_preparingWay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:hint="enter item preparing way "
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_foodDescription" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

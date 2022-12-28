@@ -8,16 +8,19 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class FoodAdapter extends BaseAdapter {
     ArrayList<String> foodNameList=new ArrayList<>();
     ArrayList<String> foodComponentsList=new ArrayList<>();
     ArrayList<Integer> foodImageList=new ArrayList<>();
+    ArrayList<Integer> foodIds=new ArrayList<>();
     Context context;
     LayoutInflater inflater;
-    public FoodAdapter(Context context,ArrayList<String> foodNameList, ArrayList<String> foodComponentsList, ArrayList<Integer> foodImage) {
+    public FoodAdapter(Context context, ArrayList<Integer> ids, ArrayList<String> foodNameList, ArrayList<String> foodComponentsList, ArrayList<Integer> foodImage) {
         this.foodNameList = foodNameList;
+        this.foodIds=ids;
         this.foodComponentsList = foodComponentsList;
         this.foodImageList = foodImage;
         this.context = context;

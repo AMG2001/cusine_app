@@ -22,6 +22,7 @@ public class NewEgyptianFoodDialog  extends AppCompatDialogFragment {
     DBManagerEgyptianFood dbManagerEgyptianFood;
     private EditText et_egyptianName;
     private EditText et_egyptianDescription;
+    private  EditText et_egyptianFoodPreparingWay;
     static Context context;
     /**
      * take DBManager as Parameter to be able to implement all CRUD Operations
@@ -44,7 +45,7 @@ public class NewEgyptianFoodDialog  extends AppCompatDialogFragment {
          * to inflate dialog on Activity .
          */
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.egyptian_food_dialog,null);
+        View view = inflater.inflate(R.layout.new_food_item,null);
         /**
          * setTitle -> is Text that appear at the top of the Dialog.
          * setNegativeButton(Text,Listener) , is Cancel Button .
@@ -61,15 +62,20 @@ public class NewEgyptianFoodDialog  extends AppCompatDialogFragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 /**
-                 * Insert New Cusine in Database and then referesh UI
+                 * Insert New Egyptian food  in Database and then referesh UI
                  */
-                dbManagerEgyptianFood.insertNewEgyptianFoodItem(et_egyptianName.getText().toString(),et_egyptianDescription.getText().toString());
-                MainActivity.refreshUI();
+                try{
+                    dbManagerEgyptianFood.insertNewEgyptianFoodItem(et_egyptianName.getText().toString(),et_egyptianDescription.getText().toString(),et_egyptianFoodPreparingWay.getText().toString(),R.drawable.eg_food_ma74y);
+                }catch (Exception e){
+                    Toast.makeText(context,"problem when adding new egyptian food" , Toast.LENGTH_SHORT).show();
+                }
+                 EgyptianFoodActivity.refreshUI();
             }
         });
-        et_egyptianName=view.findViewById(R.id.et_egyptianfood_name);
-        et_egyptianDescription=view.findViewById(R.id.et_egyptainfood_description);
-        return  builder.create();
+        et_egyptianName=view.findViewById(R.id.et_foodName);
+        et_egyptianDescription=view.findViewById(R.id.et_foodDescription);
+        et_egyptianFoodPreparingWay=view.findViewById(R.id.et_preparingWay);
+        return builder.create();
     }
 
 

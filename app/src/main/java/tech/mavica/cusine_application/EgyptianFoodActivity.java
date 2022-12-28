@@ -46,10 +46,9 @@ public class EgyptianFoodActivity extends AppCompatActivity {
         egyptianFoodSharedPrefEditor=egyptianFoodSharedPref.edit();
         if(egyptianFoodSharedPref.getBoolean(egyptianFoodSharedPrefKey,true)==true){
             // insert food name , food description , food preparing way , food image .
-            dbManagerEgyptianFood.insertNewEgyptianFoodItem("ورق عنب","الاء محمد عبد الحميد احمد حماد","preparing way",R.drawable.eg_food_ma74y);
-
-
-            egyptianFoodSharedPrefEditor.putBoolean(egyptianFoodSharedPrefKey,false);
+//            dbManagerEgyptianFood.insertNewEgyptianFoodItem("ورق عنب","الاء محمد عبد الحميد احمد حماد","preparing way",R.drawable.eg_food_ma74y);
+//            egyptianFoodSharedPrefEditor.putBoolean(egyptianFoodSharedPrefKey,false);
+//             egyptianFoodSharedPrefEditor.commit();
         }
 //        dbManagerEgyptianFood.insertNewEgyptianFoodItem("ورق عنب","الاء محمد عبد الحميد احمد حماد");
         /**
@@ -57,18 +56,8 @@ public class EgyptianFoodActivity extends AppCompatActivity {
          * assign ArrayLists to Adapter and link it with UI
          */
         refreshUI();
-        egyptianFoodAdatper =new FoodAdapter(this,foodNameList,foodDescriptionList,foodImageList);
+        egyptianFoodAdatper =new FoodAdapter(this,ids,foodNameList,foodDescriptionList,foodImageList);
         lv_egyptianFood.setAdapter(egyptianFoodAdatper);
-
-
-
-
-
-
-
-
-
-
         lv_egyptianFood.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int index, long l) {
@@ -103,10 +92,18 @@ public class EgyptianFoodActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * adding new egyptian food
+     * @param view
+     */
     public  void insertNewEgyptianFoodItem(View view){
-        // TODO insert new cusine_country here .
         openDialog();
     }
+    public void openDialog(){
+        NewEgyptianFoodDialog dialog = new NewEgyptianFoodDialog(dbManagerEgyptianFood,this);
+        dialog.show(getSupportFragmentManager(),null);
+    }
+
     /**
      * it used to refresh Ui each time you open this page .
      */
@@ -129,14 +126,11 @@ public class EgyptianFoodActivity extends AppCompatActivity {
             foodImageList.add(cursor.getInt(3));
         }
         // TODO , base new array lists to adapter .
-        egyptianFoodAdatper = new FoodAdapter(context,foodNameList,foodDescriptionList,foodImageList);
+        egyptianFoodAdatper = new FoodAdapter(context,ids,foodNameList,foodDescriptionList,foodImageList);
         lv_egyptianFood.setAdapter(egyptianFoodAdatper);
     }
 
-    public void openDialog(){
-        NewEgyptianFoodDialog dialog = new NewEgyptianFoodDialog(dbManagerEgyptianFood,this);
-        dialog.show(getSupportFragmentManager(),null);
-    }
+
 
     /**
      * Show Edit , Delete Popup Menu .
